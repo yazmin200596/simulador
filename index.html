@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMULADOR</title>
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+    
+
+</head>
+
+<body>
+
+    <header class="hero">
+        <nav class="nav container">
+            <div class="nav__logo">
+                <h2 class="nav__title">Simulador de amortizaciones</h2>
+            </div>
+
+            <ul class="nav__link nav__link--menu">
+              
+
+                <img src="./images/close.svg" class="nav__close">
+            </ul>
+
+            <div class="nav__menu">
+                <img src="./images/menu.svg" class="nav__img">
+            </div>
+        </nav>
+
+        <section class="table">
+            <table id="myTable">
+               <tr>
+                <td>Número</td>
+                <td>Fecha Inicio</td>
+                <td>Fecha Vencimiento</td>
+                <td>Fecha Pago</td>
+                <td>Capital</td>
+                <td>Interés</td>
+                <td>Iva Interés</td>
+                <td>Total Pago</td>
+                <td>Saldo Capital</td>
+                <td></td>
+                <td></td>
+               </tr>
+                <tr>
+                   <td>
+                   <input type="number"  name="numero"/>    
+                   </td> 
+                   <td>
+                    <input type="date" />    
+                   </td>
+                   <td>
+                    <input type="date" />    
+                   </td>
+                   <td>
+                    <input type="date"  />    
+                   </td>
+                   <td>
+                    <input type="number" class="cantidad" onkeyup="sumar();"/>    
+                   </td>
+                   <td>
+                    <input type="number"  class="interes" onkeyup="sumarInteres();"/>    
+                   </td>
+                   <td>
+                    <input type="number"  class="iva" onkeyup="sumarIvaInteres();"/>    
+                   </td>
+                   <td>
+                    <input type="number"  onkeyup="sumarColumnasPorFilas();"/>    
+                   </td>
+                   <td>
+                    <input type="number" />    
+                   </td>
+                   <td>
+                    <button class="btn btn-sm btn-outline-secondary btn-bottom-left" type="button"onclick="myDeleteFunction()"> <img src="./images/negativo.png" height ="10" width="10" /></button>
+                   </td>
+                   <td>
+                    <button class="btn btn-sm btn-outline-secondary btn-bottom-right" type="button2" onclick="myCreateFunction()"> <img src="./images/mas.png" height ="10" width="10" /></button>
+                   </td>
+                   
+                </table>
+                <table>
+                    <tr>
+                        <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+                        <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td> <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+                        <td>Totales:</td>
+                        <td>
+                       <input type="number" id="total" readonly/>
+                    </td>    
+                        <td>
+                            <input type="number" id="totalInteres" readonly/>  
+                        </td>  
+                        <td>
+                            <input type="number" id="totalIvaInteres" readonly/>  
+                        
+                        </td>     
+                       </table>
+                    <script>
+                    function myCreateFunction() {
+                        
+                        var table = document.getElementById("myTable");
+                        var row = table.insertRow(-1);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+                        var cell5 = row.insertCell(4);
+                        var cell6 = row.insertCell(5);
+                        var cell7 = row.insertCell(6);
+                        var cell8 = row.insertCell(7);
+                        var cell9 = row.insertCell(8);
+                        var cell10 = row.insertCell(9);
+                        cell1.innerHTML = "<input type='number'>";
+                        cell2.innerHTML = "<input type='date' >";
+                        cell3.innerHTML = "<input type='date' >";
+                        cell4.innerHTML = "<input type='date' >";
+                        cell5.innerHTML = "<input type='number'' class='cantidad' onkeyup='sumar();'>";
+                        cell6.innerHTML = "<input type='number' ' class='interes' onkeyup='sumarInteres();'>";
+                        cell7.innerHTML = "<input type='number'  class='iva' onkeyup='sumarColumnasPorFilas();'>";
+                        cell8.innerHTML = "<input type='number'>";
+                        cell9.innerHTML = "<input type='number'>";
+                    }
+                    
+                    
+                        function myDeleteFunction() {
+                    
+                            var table = document.getElementById("myTable");
+                            var rowCount = table.rows.length;
+                        if (rowCount > 2) {
+                            table.deleteRow(rowCount - 1);
+                        }
+                        else {}
+                            }
+                                      
+                       
+
+
+
+                        function sumar()
+                            {
+                            const $total = document.getElementById('total');
+                            let subtotal = 0;
+                            [ ...document.getElementsByClassName( "cantidad" ) ].forEach( function ( element ) {
+                                if(element.value !== '') {
+                                subtotal += parseFloat(element.value);
+                                }
+                            });
+                            $total.value = subtotal;
+                         }
+                        function sumarInteres()
+                            {
+                            const $totalInteres = document.getElementById('totalInteres');
+                            let subtotal = 0;
+                            [ ...document.getElementsByClassName( "interes" ) ].forEach( function ( element ) {
+                                if(element.value !== '') {
+                                subtotal += parseFloat(element.value);
+                                }
+                            });
+                            $totalInteres.value = subtotal;
+                        }
+                        function sumarIvaInteres()
+                            {
+                            const $totalIvaInteres = document.getElementById('totalIvaInteres');
+                            let subtotal = 0;
+                            [ ...document.getElementsByClassName( "iva" ) ].forEach( function ( element ) {
+                                if(element.value !== '') {
+                                subtotal += parseFloat(element.value);
+                                }
+                            });
+                            $totalIvaInteres.value = subtotal;
+                        }
+                        function sumarColumnasPorFilas() {
+                            var tabla = document.getElementById("myTable");
+                            for (var i = 1; i < tabla.rows.length; i++) {
+                                valor1 = valor1 + parseFloat(document.getElementById(myTable).rows[i].cells[5].innerHTML);
+                                valor2 = valor2 + parseFloat(document.getElementById(myTable).rows[i].cells[6].innerHTML);
+                                tabla.rows[i].cells[7].innerHTML = valor1 + valor2;
+                                 
+                            }
+                        }
+                     </script>
+                   
+                    
+                  </div>
+                </td>
+                </tr>
+            
+           
+           
+            
+        </section>
+    </header>
+
+    <main>
+       
+        </section>
+
+        <section class="knowledge">
+           
+        </section>
+
+        
+        </section>
+
+        <section class="testimony">
+        </section>
+
+        <section class="questions container">
+            <h2 class="subtitle"></h2>
+            <p class="questions__paragraph"></p>
+
+            <section class="questions__container">
+       
+            </section>
+
+            <section class="questions__offer">
+            </section>
+        </section>
+    </main>
+
+    <footer class="footer">
+       
+    </footer>
+
+    <script src="./js/slider.js"></script>
+    <script src="./js/questions.js"></script>
+    <script src="./js/menu.js"></script>
+</body>
+
+</html>
